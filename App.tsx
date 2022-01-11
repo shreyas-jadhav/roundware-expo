@@ -10,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ListenScreen from "./screens/Listen";
 import SpeakScreen from "./screens/Speak";
+import { RoundwareProvider } from "./providers/RoundwareProvider";
 
 const Stack = createNativeStackNavigator();
 export type RootStackParamList = {
@@ -21,40 +22,45 @@ export type RootStackParamList = {
 export default function App() {
   return (
     <NavigationContainer>
-      <PaperProvider theme={theme}>
-        <SafeAreaView style={{ flex: 1 }}>
-          {/* <Appbar /> */}
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: theme.colors.primary,
-              },
-              headerTitleStyle: {
-                color: theme.colors.background,
-                fontSize: 24,
-              },
-            }}
+      <RoundwareProvider>
+        <PaperProvider theme={theme}>
+          <SafeAreaView
+            style={{ flex: 1, backgroundColor: theme.colors.primary }}
           >
-            <Stack.Screen
-              name="Home"
-              component={LandingScreen}
-              options={{ title: "Roundware" }}
-            />
-            <Stack.Screen
-              name="Listen"
-              component={ListenScreen}
-              options={{ headerBackTitle: "" }}
-            />
-            <Stack.Screen
-              name="Speak"
-              component={SpeakScreen}
-              options={{ headerBackTitle: "" }}
-            />
-          </Stack.Navigator>
+            {/* <Appbar /> */}
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: theme.colors.primary,
+                },
 
-          <Footer />
-        </SafeAreaView>
-      </PaperProvider>
+                headerTitleStyle: {
+                  color: theme.colors.background,
+                  fontSize: 24,
+                },
+              }}
+            >
+              <Stack.Screen
+                name="Home"
+                component={LandingScreen}
+                options={{ title: "Roundware" }}
+              />
+              <Stack.Screen
+                name="Listen"
+                component={ListenScreen}
+                options={{ headerBackTitle: "" }}
+              />
+              <Stack.Screen
+                name="Speak"
+                component={SpeakScreen}
+                options={{ headerBackTitle: "" }}
+              />
+            </Stack.Navigator>
+
+            <Footer />
+          </SafeAreaView>
+        </PaperProvider>
+      </RoundwareProvider>
     </NavigationContainer>
   );
 }
